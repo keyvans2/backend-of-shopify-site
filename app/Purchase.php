@@ -4,10 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Cart extends Model
+class Purchase extends Model
 {
-    protected $with = ['product'];
-    protected $fillable = ['quantity'];
+    protected $fillable = ['quantity', 'trackingCode', 'offCode'];
 
     public function product()
     {
@@ -17,5 +16,6 @@ class Cart extends Model
     public function user()
     {
         return $this->belongsToMany(User::class);
+
     }
 }

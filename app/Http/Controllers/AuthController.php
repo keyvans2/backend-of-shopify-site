@@ -46,6 +46,7 @@ class AuthController extends Controller
 //        echo $r;
 
 //return $r->all();
+
         User::create([
             "name" => $r->name,
             "username" => $r->username,
