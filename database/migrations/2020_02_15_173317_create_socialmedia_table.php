@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSiteSettingsTable extends Migration
+class CreateSocialmediaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class CreateSiteSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('site_settings', function (Blueprint $table) {
+        Schema::create('socialmedia', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('address');
-            $table->string('phone');
-            $table->text('logo');
-            $table->text('bannersImg');
-            $table->text('instagram');
-            $table->text('telegram');
-            $table->text('whatsapp');
+            $table->string('title');
+            $table->text('image');
+            $table->text('address');
             $table->timestamps();
         });
     }
@@ -33,6 +29,6 @@ class CreateSiteSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('site_settings');
+        Schema::dropIfExists('socialmedia');
     }
 }

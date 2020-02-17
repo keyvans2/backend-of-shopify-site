@@ -9,12 +9,6 @@ use phpDocumentor\Reflection\Types\Collection;
 
 class FirstCatController extends Controller
 {
-//    public function store(Request $r)
-//    {
-//        $first = new Firstcat();
-//        $first->title = $r->title;
-//        $first->save();
-//    }
 
     public function index(Request $r)
     {
@@ -24,14 +18,4 @@ class FirstCatController extends Controller
         ]);
     }
 
-//    public function destroy(firstcat $id)
-//    {
-//        $id->delete();
-//    }
-//
-//    public function update(firstcat $id)
-//    {
-//        $id->update(['title' => 'mahdi']);
-//
-//    }
 }

@@ -17,21 +17,11 @@ class productsController extends Controller
         $feAndCount = $val->secondcats()->withCount('products')->get();
         return response()->json([
             'data' => $feAndCount,
-        ]);
-
-
+        ],200);
     }
 
     public function fetch(Firstcat $val, Secondcat $id = null)
     {
-//        $f = response()->json([
-//            "data" => $id->products()->paginate(1)
-//        ]);
-//        foreach ($f as $t) {
-//            echo $t;
-//        }
-//        return $id->products()->paginate(1);
-
         if (is_null($id)) {
 
             $fetch = $val->secondcats;
