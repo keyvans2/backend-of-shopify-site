@@ -16,22 +16,20 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
-            $table->string('type');
-            $table->string('color');
-            $table->string('size');
+//            $table->string('color');
+//            $table->string('size');
             $table->integer('price');
             $table->integer('stock');
             $table->text('image');
-            $table->text('details');
-            $table->bigInteger('star');
+            $table->longText('details');
+            $table->bigInteger('star')->default(0);
             $table->bigInteger('visit')->default(0);
             $table->bigInteger('sell')->default(0);
             $table->bigInteger('secondcat_id')->unsigned()->index();
             $table->foreign('secondcat_id')->
             references('id')->
-            on('secondcats')->
-            onUpdate('cascade')->
-            onDelete('cascade');
+            on('secondCats')->
+            onUpdate('cascade');
             $table->timestamps();
         });
     }

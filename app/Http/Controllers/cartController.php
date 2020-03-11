@@ -97,21 +97,37 @@ class cartController extends Controller
         $id->delete();
     }
 
+    public function discount(Request $r)
+    {
+        $find = Auth::user()->purchases->where('offCode', $r->discount)->values()->all();
+        if (count($find) > 0) {
+            Auth::user()->discount += 1;
+            Auth::user()->save();
+            $offCode = Auth::user()->purchases->where('offCode', $r->discount)->values()[0];
+            $offCode->offCode = 0;
+            $offCode->save();
+        } else {
+            return response()->json([
+                "data" => "failed"
+            ], 404);
+        }
+
+    }
+
     public function payment()
     {
         $cart = Auth::user()->carts;
         $total = 0;
         foreach ($cart as $c) {
             foreach ($c->product as $p) {
-
                 $total += $c->quantity * $p->price;
-
             }
         }
-
+        $total -= Auth::user()->discount * 5000;
         ///if purchased Or not///
-        $purchased = null;
-        if ($purchased) {
+
+
+        if ($total) {
             foreach ($cart as $ca) {
                 $purchase = new Purchase([
                     'quantity' => $ca->quantity,
@@ -123,10 +139,12 @@ class cartController extends Controller
                 foreach ($ca->product as $p) {
                     $pro = Product::find($p->id);
                     $pro->stock -= $ca->quantity;
+                    $pro->sell += 1;
+                    $pro->visit += 1;
+                    $pro->star += 1;
                     $pro->save();
+                    $purchase->user()->associate(Auth::user());
                     $purchase->save();
-                    $purchase->product()->sync($p->id);
-                    $purchase->user()->sync(Auth::user());
                 }
                 Auth::user()->carts()->delete();
             }
@@ -144,15 +162,21 @@ class cartController extends Controller
 
     public function track(Request $r)
     {
-        $track = Auth::user()->putchases->where('trackingCode', $r->track);
-        if ($track->isEmpty()) {
+        $track = Purchase::all()->where('trackingCode', $r->track);
+        if ($track->count() < 1) {
             return response()->json([
-                'data' => 'موردی با این شناسه پیدا نشد'
-            ], 404);
-        } else {
-            return response()->json([
-                'data' => $track[0]->status
+                'data' => ['موردی با این شناسه پیدا نشد']
             ], 200);
+        } else {
+
+            foreach ($track as $t) {
+                return response()->json([
+                    'data' => $t->status
+                ], 200);
+            }
         }
+
     }
+
 }
+

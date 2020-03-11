@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Secondcat extends Model
 {
 //    protected $with = ['products'];
-    protected $fillable = ['title', 'first_id'];
-
+    protected $fillable = ['title'];
+protected $table='secondCats';
 
     public function firstCat()
     {

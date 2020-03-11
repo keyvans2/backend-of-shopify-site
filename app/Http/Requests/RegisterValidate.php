@@ -25,15 +25,28 @@ class RegisterValidate extends FormRequest
     {
         return [
 
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users',
             'name' => 'required|min:4',
-            'password' => 'required',
+            'password' => 'required|min:8',
             'retype_password' => 'required|same:password',
-            'username' => 'required',
+            'username' => 'required|unique:users',
             'phone' => 'required',
             'birthday' => 'required',
-            'image' => 'required'
+        ];
+    }
 
+    public function messages()
+    {
+        return [
+            'email.required' => 'وارد کردن ایمیل اجباری است',
+            'email.email' => 'دستور ایمیل اشتباه است',
+            'email.unique' => 'ایمیلی با این مشخصات از قبل موجود است',
+            'password.required' => 'وارد کردن رمز عبور الزامی است',
+            'password.min' => 'حداقل :attribute باید وارد کنید',
+            'retype_password.same' => 'رمز های عبور وارد شده باهم مظابقت ندارند',
+            'username.required' => 'وارد کردن نام کاربری الزامی است',
+            'username.unique' => 'نام کاربری با این مشخصات از قبل موجود است',
+            'birthday.required' => 'وارد کردن تاریخ تولد الزامی است',
         ];
     }
 }

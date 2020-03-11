@@ -15,10 +15,14 @@ class CreatePurchasesTable extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('user_id')->unsigned()->index();
+//            $table->bigInteger('product_id');
             $table->bigInteger('quantity');
             $table->text('trackingCode');
             $table->text('offCode');
             $table->string('status')->default('محصول در حال ارسال شدن است...');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+//            $table->foreign('product_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

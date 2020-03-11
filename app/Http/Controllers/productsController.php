@@ -17,7 +17,7 @@ class productsController extends Controller
         $feAndCount = $val->secondcats()->withCount('products')->get();
         return response()->json([
             'data' => $feAndCount,
-        ],200);
+        ], 200);
     }
 
     public function fetch(Firstcat $val, Secondcat $id = null)

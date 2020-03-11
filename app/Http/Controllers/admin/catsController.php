@@ -11,7 +11,16 @@ class catsController extends Controller
 {
     public function firstIndex()
     {
-        return Firstcat::all();
+        return response()->json([
+            "data" => Firstcat::all()
+        ], 200);
+    }
+
+    public function secondIndex()
+    {
+        return response()->json([
+            "data" => Secondcat::all()
+        ], 200);
     }
 
     public function firstCatStore(Request $r)
@@ -60,6 +69,6 @@ class catsController extends Controller
         return response()->json([
             "data" => Firstcat::with('secondcats')->get()
         ], 200);
-      
+
     }
 }

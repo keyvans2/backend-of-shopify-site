@@ -7,15 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
 
-    protected $fillable = ['title', 'stock', 'image', 'type', 'star', 'color', 'size', 'details', 'secondcat_id', 'name', 'price','created_at','updated_at'];
+    protected $fillable = ['title', 'stock', 'image', 'type', 'details', 'secondcat_id', 'name', 'price'];
 
     public function Cart()
     {
         return $this->belongsToMany(Cart::class);
     }
 
-    public function purchase()
+//    public function purchase()
+//    {
+//        return $this->hasMany(Purchase::class);
+//    }
+
+    public function secondcat()
     {
-        return $this->belongsToMany(Purchase::class);
+        return $this->belongsTo(Secondcat::class);
     }
 }
